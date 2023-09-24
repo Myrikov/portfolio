@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+#card {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+h1 {
+  font-size: 48px;
+  margin: 0;
+  font-family: 'Your-Beautiful-Font', sans-serif; /* Замените 'Your-Beautiful-Font' на имя выбранного вами красивого шрифта */
+}
+
+#icon-links {
+  margin-top: 20px;
+}
+
+#icon-links a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+#icon-links img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+}
+
+#icon-links img:hover {
+  transform: scale(1.2);
+}
