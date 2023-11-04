@@ -1,38 +1,216 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - A Pen by MyRIk Channel</title>
-  <link rel="stylesheet" href="./style.css">
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Визитка</title>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+	<style>
+		@font-face {
+			font-family: 'blogger-sans';
+			src: url('https://cdn.octothorp.team/gmod/resource/fonts/bloggerm.ttf') format('truetype');
+		}
+
+		html {
+			height: 100%;
+		}
+
+		body {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+
+			background-color: rgb(206, 150, 19);
+			background-image: url(https://cdn.discordapp.com/attachments/1168860028392968303/1170322604167536680/20231014004234_1.jpg?ex=65589edc&is=654629dc&hm=3ac2c064a24accd0fb880fcc39932bbe5adaa0dcd4081c9e836a147ef45882a6&);
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+
+		#main-text {
+			position: absolute;
+			width: 100%;
+			height: 100%;a
+			background-image: url(https://cdn.discordapp.com/attachments/1168860028392968303/1170326180927377430/202D31102202427_1.png?ex=6558a231&is=65462d31&hm=0754189143f932bdc59d417bb44ddd7eefbc866136433d2376607bce9fac7ed7&);
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+
+		#loading {
+			position: absolute;
+			top: 50%;
+			margin: -200px 8.5%;
+			height: 400px;
+			width: 83%;
+			border-bottom: dashed 2px rgba(255, 255, 255, 0.35);
+			/* border-radius: 8px; */
+			/* background-color: #3B2F3B; */
+		}
+
+		#car {
+			width: 64px;
+			height: 64px;
+			position: absolute;
+			left: 1%;
+			bottom: 0;
+		}
+
+		#city {
+			width: 120px;
+			height: px;
+			position: absolute;
+			right: 1%;
+			bottom: 0;
+		}
+
+		#hint {
+			/* position: absolute; */
+			/* bottom: 20px; */
+			/* left: 30px; */
+			margin: auto;
+			padding-top: 25px;
+			text-align: center;
+			color: #EEEEEE;
+			font-family: blogger-sans;
+			font-size: 18pt;
+			max-width: 800px;
+
+			transition: opacity 0.5s;
+			opacity: 1;
+		}
+
+		#hint2 {
+			position: fixed;
+			bottom: 20px;
+			left: 30px;
+			color: #EEEEEE;
+			font-family: blogger-sans;
+			font-size: 18pt;
+			margin: 0;
+
+			animation-name: softblink;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+		}
+
+		@keyframes softblink {
+			0% { opacity: 1 }
+			50% { opacity: 0.35 }
+			90% { opacity: 1 }
+		}
+
+		#hint.fade {
+			opacity: 0;
+		}
+	</style>
 </head>
+
 <body>
-    <video autoplay loop muted id="background-video">
-        <source src="video2.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео в формате MP4.
-    </video>
-    <div id="card">
-        <h1>Myrik</h1>
-        <div id="icon-links">
-            <a href="https://discord.gg/Z2RzCFtZaa" target="_blank"><img src="discord-icon.png"></a>
-            <a href="https://steamcommunity.com/id/MyRik1337/" target="_blank"><img src="steam-icon.png"></a>
-            <a href="https://www.youtube.com/channel/UCnS-8HwLI1xikKcgB98o61w" target="_blank"><img src="youtube-icon.png"></a>
-        </div>
-    </div>    
-    <script src="script.js"></script>
+	<div id='main-text'></div>
+	<div id='loading'>
+		<img src='https://cdn-icons-png.flaticon.com/512/88/88327.png' id='city'>
+		<img src='https://cdn.octothorp.team/icons/color64/bus.png' id='car'>
+	</div>
+	<p id='hint'>Бежим епте в TownGrad ...</p>
+	<p id='hint2'>Бежим епте в TownGrad...</p>
+
+	<script>
+		if (Math.random() > 0.98) document.getElementById('car').src = 'https://cdn.octothorp.team/icons/color64/car' + Math.floor(Math.random() * 3 + 1) + '.png'
+
+		function shuffle(a) {
+			var j, x, i
+			for (i = a.length - 1; i > 0; i--) {
+				j = Math.floor(Math.random() * (i + 1))
+				x = a[i]
+				a[i] = a[j]
+				a[j] = x
+			}
+			return a
+		}
+
+		var hints = shuffle([
+			'Не говори неролевую информацию в голосовой чат или ролевой текстовый чат (MG). Используй команду /l, чтобы не получить бан',
+			'Если ты у нас впервые, обязательно ознакомься с обучением (F1)<br>Так будет намного легче сориентироваться и понять, с чего начать',
+			'Если ты хочешь подать жалобу на игрока, но администратора в данный момент нет на сервере, стоит написать жалобу на нашем форуме, обязательно ознакомившись с формой подачи заявки',
+			'Если ты хочешь помочь серверу как администратор, можно подать заявку на стажировку на нашем форуме',
+			'Если у тебя есть предложения по улучшению игры, можно оформить предложение на нашем форуме',
+			'Если игрок нарушил правило и это тебе мешает, не нужно прибегать к оскорблениям или ответным нарушениям, это карается баном<br>В таком случае стоит уведомить администратора',
+			'Если тебе нравится TownGrad, можно попробовать другие наши проекты, их список доступен на сайте или в ESC-меню',
+			'На некоторых серверах есть уникальный общественный транспорт:<br>на Новом TownGrad это автобусные остановки',
+			'Старайся чаще использовать ролевые команды, например /me и /it,<br>они помогут хорошо развить твою историю',
+			'Ты можешь настроить краткое описание внешности<br>в меню персонажа на F4',
+			'Ты можешь узнать много полезной информации о твоем окружении используя функцию \'приглядеться\'<br>(по умолчанию активируется на клавишу G)',
+			'Клавиши особых действий нашего игрового режима можно изменить в меню настроек на F4',
+			'Чтобы оставаться в курсе всех событий и обновлений, обязательно следи за нашей группой ВК и форумом, а в Discord публикуются все изменения и ближайшие планы',
+			'Если нужно узнать рецепт крафта какого-то предмета, всегда можно посмотреть его в справочнике на F4 или на вики',
+			'Если ты хочешь получить доступ к новым инструментам или другим интересностям, можно заглянуть в магазин плюшек на F4',
+		])
+
+		var curHintID = -1
+		function nextHint() {
+			var el = document.getElementById('hint')
+			el.classList.add('fade')
+			setTimeout(function() {
+				curHintID ++
+				if (curHintID >= hints.length) curHintID = 0
+				el.innerHTML = hints[curHintID]
+				el.classList.remove('fade')
+			}, 500)
+		}
+		nextHint()
+		setInterval(nextHint, 10000)
+
+		function clamp(num){
+			return Math.min(Math.max(num, 0), 1)
+		}
+
+		var left = 1, stLeft = 5, filesTotal, wsTotal, filesLeft, wsLeft, finished;
+		function updateProgress() {
+			if (!filesLeft || !wsLeft) return
+			left = finished ? 0 : clamp(stLeft / 5) * 0.5 + clamp(filesLeft / filesTotal) * 0.1 + clamp(wsLeft / wsTotal) * 0.4
+		}
+
+		function SetStatusChanged(status){
+			if (status == 'Sending client info...'){
+				finished = true
+				 document.getElementById('hint').innerHTML = 'Почти на месте...'
+			} else if (status.search(/Extracting|Loading/i) == -1) stLeft = Math.max(stLeft - 1, 0)
+			else wsLeft --
+
+			updateProgress()
+		}
+
+		// total server files
+		function SetFilesTotal(files){
+			if (!filesTotal){
+				filesTotal = files
+				filesLeft = files
+				updateProgress()
+			}
+		}
+
+		// total workshop items
+		function SetFilesNeeded(ws){
+			if (!wsTotal){
+				wsTotal = ws
+				wsLeft = ws
+				updateProgress()
+			}
+		}
+
+		function DownloadingFile(name){
+			filesLeft --
+			updateProgress()
+		}
+
+		var val = 1
+		setInterval(function(){
+			if (val == left) return
+
+			val = Math.max(val - Math.max((val - left) * 0.01, 0.00002), 0)
+			document.getElementById('car').style.left = (93 * (1 - val)) + '%'
+		}, 16)
+	</script>
+<script>(function(){var js = "window['__CF$cv$params']={r:'8205717adbc90190',t:'MTY5OTAyMzE2OS44MDEwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8205717adbc90190","version":"2023.10.0","r":1,"token":"24f9e9d7b7014b868fc44b4f0b74bc43","b":1}' crossorigin="anonymous"></script>
 </body>
-</html>
-<!-- partial -->
-  
-</body>
+
 </html>
